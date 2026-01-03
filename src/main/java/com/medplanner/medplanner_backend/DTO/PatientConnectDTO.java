@@ -7,10 +7,6 @@ public class PatientConnectDTO {
 	
 	private String password;
 	
-	private String nom;
-	
-	private String prenom;
-	
 
 	public PatientConnectDTO(String email, String password) {
 		super();

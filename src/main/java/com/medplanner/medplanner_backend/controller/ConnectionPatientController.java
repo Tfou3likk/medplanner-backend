@@ -6,6 +6,8 @@ import com.medplanner.medplanner_backend.DTO.PatientConnectDTO;
 import com.medplanner.medplanner_backend.entities.PatientEntity;
 import com.medplanner.medplanner_backend.repository.PatientRepository;
 
+
+
 @RestController
 @RequestMapping("/api/patient")
 public class ConnectionPatientController {
@@ -17,6 +19,8 @@ public class ConnectionPatientController {
 		this.patient = patient;
 	}
 	
+	            
+	    
 	@PostMapping("/login")
 	public PatientEntity connect(@RequestBody PatientConnectDTO pDto) {
 		
