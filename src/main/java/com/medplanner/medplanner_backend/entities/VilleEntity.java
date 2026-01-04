@@ -3,6 +3,8 @@ package com.medplanner.medplanner_backend.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +18,17 @@ public class VilleEntity {
 	@Column(name = "nom_ville") 
 	private String nomVille;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "ville" ,fetch = FetchType.LAZY)
 	private List<MedecinEntity> medecin;
+
+	public List<MedecinEntity> getMedecin() {
+		return medecin;
+	}
+
+	public void setMedecin(List<MedecinEntity> medecin) {
+		this.medecin = medecin;
+	}
 
 	public VilleEntity() {
 		super();

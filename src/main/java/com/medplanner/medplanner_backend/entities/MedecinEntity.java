@@ -43,6 +43,42 @@ public class MedecinEntity {
 	private SpecialiteEntity specialite;
 	
 	
+	public Integer getIdVille() {
+		return idVille;
+	}
+
+
+
+	public void setIdVille(Integer idVille) {
+		this.idVille = idVille;
+	}
+
+
+
+	public VilleEntity getVille() {
+		return ville;
+	}
+
+
+
+	public void setVille(VilleEntity ville) {
+		this.ville = ville;
+	}
+
+
+
+	public SpecialiteEntity getSpecialite() {
+		return specialite;
+	}
+
+
+
+	public void setSpecialite(SpecialiteEntity specialite) {
+		this.specialite = specialite;
+	}
+
+
+
 	public MedecinEntity() {
 		super();
 	}
