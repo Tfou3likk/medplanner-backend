@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medplanner.medplanner_backend.DTO.RendezVousDTO;
 import com.medplanner.medplanner_backend.entities.RendezVousEntity;
 import com.medplanner.medplanner_backend.repository.RendezVousRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,6 +50,26 @@ public class RdvController {
 	public List<RendezVousEntity>listerRdvPatient(@PathVariable Integer id) {
 		return rdvRepository.findByIdPatient(id);
 	}
+	
+	@GetMapping("/patient/edit/{id}")
+	public RendezVousEntity editRdvPatient(@PathVariable Integer id) {
+		RendezVousEntity rdvPatient = rdvRepository.getById(id); 
+        return rdvPatient;
+    }
+	
+	@PutMapping("/patient/modif/{id}")
+	public List<RendezVousEntity> modifRdvPatient(@PathVariable Integer id, @RequestBody RendezVousDTO  pDto) {
+		
+		
+		RendezVousEntity rdv = rdvRepository.getById(id) ;
+		rdv.setDateRdv(pDto.getDate());
+		rdv.setHeure(pDto.getHeure());
+			
+		rdvRepository.save(rdv);
+		Integer idPatient = rdv.getIdPatient();
+        List<RendezVousEntity> listeRdvPatient = listerRdvPatient(idPatient);
+        return listeRdvPatient;
+    }
 	
 	@Operation(
 	        summary = "Supprimer un rdv",

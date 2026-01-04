@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 @Table(name = "rendez_vous")
 public class RendezVousEntity {
 	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rdv")
@@ -44,7 +45,12 @@ public class RendezVousEntity {
 		super();
 	}
 	
-	
+	public RendezVousEntity(Integer id, LocalDate dateRdv, LocalTime heure) {
+		super();
+		this.id = id;
+		this.dateRdv = dateRdv;
+		this.heure = heure;
+	}	
 
 	public Integer getIdPatient() {
 		return idPatient;
