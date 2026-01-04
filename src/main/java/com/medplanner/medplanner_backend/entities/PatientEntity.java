@@ -1,6 +1,7 @@
 package com.medplanner.medplanner_backend.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -39,10 +40,21 @@ public class PatientEntity {
 	@Column(name = "date_naissance")
 	private LocalDate dateNaissance;
 	
-	
+	@JsonIgnore
+	@OneToMany(mappedBy = "patient")
+	private List<RendezVousEntity> rendezVous;
 
 	public PatientEntity() {
 		super();
+	}
+
+	
+	public List<RendezVousEntity> getRendezVous() {
+		return rendezVous;
+	}
+
+	public void setRendezVous(List<RendezVousEntity> rendezVous) {
+		this.rendezVous = rendezVous;
 	}
 
 	public Integer getId() {

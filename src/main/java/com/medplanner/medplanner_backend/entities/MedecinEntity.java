@@ -2,6 +2,9 @@ package com.medplanner.medplanner_backend.entities;
 
 
 import java.time.LocalTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -33,15 +36,16 @@ public class MedecinEntity {
 	private Integer idVille;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId
 	@JoinColumn(name = "id_ville")
 	private VilleEntity ville;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId
 	@JoinColumn(name = "id_specialite")
 	private SpecialiteEntity specialite;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "medecin")
+	private List<RendezVousEntity> rendezVous;
 	
 	public Integer getIdVille() {
 		return idVille;

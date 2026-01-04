@@ -14,26 +14,85 @@ public class RendezVousEntity {
     @Column(name = "id_rdv")
     private Integer id;
 	
-	@Column(name = "id_medecin")
+	@Column(name = "id_patient", insertable=false, updatable=false)
+	private Integer idPatient;
+	
+	@Column(name = "id_medecin",insertable=false, updatable=false)
 	private Integer idMedecin;
 
     @Column(name = "date_rdv")
     private LocalDate dateRdv;
 
-    @Column
+    @Column(name = "heure_rdv")
     private LocalTime heure;
 
-    @Column(name = "compte_rendu")
-    private String compteRendu;
+    @Column(name = "compte_rendu_rdv")
+    private String compteRenduRdv;
     
-    @Column
-    private boolean dispo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_patient")
+    private PatientEntity patient;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_medecin")
+    private MedecinEntity medecin;
+    
     
     
 
 	public RendezVousEntity() {
 		super();
 	}
+	
+	
+
+	public Integer getIdPatient() {
+		return idPatient;
+	}
+
+
+
+	public void setIdPatient(Integer idPatient) {
+		this.idPatient = idPatient;
+	}
+
+
+
+	public String getCompteRenduRdv() {
+		return compteRenduRdv;
+	}
+
+
+
+	public void setCompteRenduRdv(String compteRenduRdv) {
+		this.compteRenduRdv = compteRenduRdv;
+	}
+
+
+
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+
+
+	public MedecinEntity getMedecin() {
+		return medecin;
+	}
+
+
+
+	public void setMedecin(MedecinEntity medecin) {
+		this.medecin = medecin;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -67,21 +126,7 @@ public class RendezVousEntity {
 		this.heure = heure;
 	}
 
-	public String getCompteRendu() {
-		return compteRendu;
-	}
 
-	public void setCompteRendu(String compteRendu) {
-		this.compteRendu = compteRendu;
-	}
-
-	public boolean isDispo() {
-		return dispo;
-	}
-
-	public void setDispo(boolean dispo) {
-		this.dispo = dispo;
-	}
     
     
 
