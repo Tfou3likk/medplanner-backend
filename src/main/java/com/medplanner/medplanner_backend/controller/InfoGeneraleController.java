@@ -14,6 +14,12 @@ import com.medplanner.medplanner_backend.repository.MedecinRepository;
 import com.medplanner.medplanner_backend.repository.SpecialiteRepository;
 import com.medplanner.medplanner_backend.repository.VilleRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Informations générales")
 @RestController
 @RequestMapping("/api/info")
 public class InfoGeneraleController {
@@ -30,18 +36,40 @@ public class InfoGeneraleController {
 		this.specialiteRepository = specialiteRepository;
 	}
     
+    @Operation(
+            summary = "Lister des médecins",
+            description = "Retourne la liste de tous les médecins."
+        )
+        @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Liste des médecins OK")
+        })
     @Transactional(readOnly = true)
     @GetMapping("/medecins")
     public List<MedecinEntity> medecins() {
         return medecinRepository.findAll();
     }
 
+    @Operation(
+            summary = "Lister des villes",
+            description = "Retourne la liste de toutes les villes."
+        )
+        @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Liste des villes OK")
+        })
     @Transactional(readOnly = true)
     @GetMapping("/villes")
     public List<VilleEntity> villes() {
         return villeRepository.findAll();
     }
+    
 
+    @Operation(
+            summary = "Lister des Specialite",
+            description = "Retourne la liste de toutes les specialites."
+        )
+        @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Liste des Specialite OK")
+        })
     @Transactional(readOnly = true)
     @GetMapping("/specialites")
     public List<SpecialiteEntity> specialites() {

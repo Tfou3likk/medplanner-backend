@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.medplanner.medplanner_backend.entities.RendezVousEntity;
 import com.medplanner.medplanner_backend.repository.RendezVousRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Rendez-vous")
 @RestController
 @RequestMapping("/api/rdv")
 public class RdvController {
@@ -28,13 +34,28 @@ public class RdvController {
 		super();
 		this.rdvRepository = rdvRepository;
 	}
-	
+	@Operation(
+	        summary = "Liste des rendez-vous d'un patient",
+	        description = "On recupere tout les rendez vous associer a un client"
+	    )
+	    @ApiResponses({
+	        @ApiResponse(responseCode = "200", description = "Liste des rendez-vous"),
+	        @ApiResponse(responseCode = "400", description = "Paramètres invalides ou date manquante")
+	    })
 	@Transactional(readOnly = true)
 	@GetMapping("/patient/{id}")
 	public List<RendezVousEntity>listerRdvPatient(@PathVariable Integer id) {
 		return rdvRepository.findByIdPatient(id);
 	}
 	
+	@Operation(
+	        summary = "Supprimer un rdv",
+	        description = "Supprime un rdv grace a l'identifiant."
+	    )
+	    @ApiResponses({
+	        @ApiResponse(responseCode = "200", description = "Rdv supprimé"),
+	        @ApiResponse(responseCode = "404", description = "Rdv introuvable")
+	    })
 	@Transactional
 	@DeleteMapping("/patient/delete/{id}")
 	public List<RendezVousEntity> delete(@PathVariable Integer id) {
@@ -44,6 +65,19 @@ public class RdvController {
         return listeRdvPatient;
     }
 	
+	@Operation(
+	        summary = "Recherche de rendez-vous",
+	        description = """
+	            Recherche des rendez-vous d'un patient à une date donnée.
+	            La date est obligatoire.
+	            Les filtres médecin, ville et spécialité sont optionnels.
+	            """
+	    )
+	    @ApiResponses({
+	        @ApiResponse(responseCode = "200", description = "Liste des rdv correspondant"),
+	        @ApiResponse(responseCode = "400", description = "Date manquante")
+	    })
+	@Transactional(readOnly = true)
 	@GetMapping("/search")
     public List<RendezVousEntity> search(@RequestParam Integer idPatient, @RequestParam@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date,@RequestParam(required = false) Integer idMedecin,@RequestParam(required = false) Integer idVille,@RequestParam(required = false) Integer idSpecialite) {
         return rdvRepository.recherche(idPatient, date, idMedecin, idVille, idSpecialite);

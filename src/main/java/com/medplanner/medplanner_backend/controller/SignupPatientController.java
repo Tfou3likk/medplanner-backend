@@ -10,6 +10,12 @@ import com.medplanner.medplanner_backend.DTO.PatientSignupDTO;
 import com.medplanner.medplanner_backend.entities.PatientEntity;
 import com.medplanner.medplanner_backend.repository.PatientRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Authentification Patient")
 @RestController
 @RequestMapping("/api/patient")
 public class SignupPatientController {
@@ -20,7 +26,14 @@ public class SignupPatientController {
 		super();
 		this.patient = patient;
 	}
-	
+	@Operation(
+	        summary = "Inscription d'un patient",
+	        description = "Le patient va inscrire un email, un nom, un prenom, uen date de naissance et un mot de passe"
+	    )
+	    @ApiResponses({
+	        @ApiResponse(responseCode = "201", description = "Patient crée"),
+	        @ApiResponse(responseCode = "409", description = "Email existant")
+	    })        
 	@Transactional
 	@PostMapping("/signup")
 	public ResponseEntity<PatientEntity> signup(@RequestBody PatientSignupDTO pDto) {
