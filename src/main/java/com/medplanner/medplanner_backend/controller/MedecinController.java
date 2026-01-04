@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.medplanner.medplanner_backend.entities.MedecinEntity;
 import com.medplanner.medplanner_backend.repository.MedecinRepository;
 
 @RestController
 @RequestMapping("/api/medecins")
+//Classe de test JSon Swagger  l'init du projet
 public class MedecinController {
 	
 	private MedecinRepository medecinRepository;
@@ -27,18 +29,19 @@ public class MedecinController {
 		this.medecinRepository = medecinRepository;
 	}
 	
+	@Transactional(readOnly = true)
 	@GetMapping
     public List<MedecinEntity> getAll() {
         return medecinRepository.findAll();
     }
 
-    
+	@Transactional(readOnly = true)
     @GetMapping("/{id}")
     public MedecinEntity getById(@PathVariable Integer id) {
         return medecinRepository.findById(id).orElse(null);
     }
 
-   
+	@Transactional
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MedecinEntity create(@RequestBody MedecinEntity medecin) {
@@ -47,6 +50,7 @@ public class MedecinController {
     }
 
   
+	@Transactional
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {

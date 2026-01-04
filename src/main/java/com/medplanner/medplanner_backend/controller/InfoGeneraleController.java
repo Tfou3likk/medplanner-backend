@@ -2,6 +2,7 @@ package com.medplanner.medplanner_backend.controller;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,16 +30,19 @@ public class InfoGeneraleController {
 		this.specialiteRepository = specialiteRepository;
 	}
     
+    @Transactional(readOnly = true)
     @GetMapping("/medecins")
     public List<MedecinEntity> medecins() {
         return medecinRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/villes")
     public List<VilleEntity> villes() {
         return villeRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/specialites")
     public List<SpecialiteEntity> specialites() {
         return specialiteRepository.findAll();

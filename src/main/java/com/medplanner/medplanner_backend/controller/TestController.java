@@ -10,7 +10,7 @@ import com.medplanner.medplanner_backend.entities.PatientEntity;
 import com.medplanner.medplanner_backend.repository.PatientRepository;
 
 @RestController
-
+//Classe de test JSon Swagger  l'init du projet
 public class TestController {
 	
 	PatientRepository patient;

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.medplanner.medplanner_backend.entities.MedecinEntity;
+import com.medplanner.medplanner_backend.entities.PatientEntity;
 import com.medplanner.medplanner_backend.entities.RendezVousEntity;
 import com.medplanner.medplanner_backend.entities.SpecialiteEntity;
 import com.medplanner.medplanner_backend.entities.VilleEntity;
@@ -28,7 +29,7 @@ public class RendezVousRepositoryImpl implements RendezVousRepositoryCustom {
 	private EntityManager em;
 	
 	@Override
-	public List<RendezVousEntity> recherche(LocalDate date, Integer idMedecin, Integer idVille,
+	public List<RendezVousEntity> recherche(Integer idPatient, LocalDate date, Integer idMedecin, Integer idVille,
 			Integer idSpecialite) {
 		
 		CriteriaQuery<RendezVousEntity> cq = em.getCriteriaBuilder().createQuery(RendezVousEntity.class);
@@ -41,10 +42,13 @@ public class RendezVousRepositoryImpl implements RendezVousRepositoryCustom {
 		
 		Join<MedecinEntity, SpecialiteEntity> jointureMedecinSpecialite = jointureRdvMedecin.join("specialite", JoinType.INNER);
 		
+		Join<RendezVousEntity, PatientEntity> jointureRdvPatient = rdv.join("patient", JoinType.INNER);
+		
 		List<Predicate> predicates = new ArrayList<>();
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
+		predicates.add(cb.equal(jointureRdvPatient.get("id"), idPatient));
 		predicates.add(cb.equal(rdv.get("dateRdv"), date));
 		
 		if(idMedecin !=null) {

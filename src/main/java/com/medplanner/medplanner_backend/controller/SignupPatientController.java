@@ -2,6 +2,7 @@ package com.medplanner.medplanner_backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import com.medplanner.medplanner_backend.DTO.PatientConnectDTO;
@@ -20,6 +21,7 @@ public class SignupPatientController {
 		this.patient = patient;
 	}
 	
+	@Transactional
 	@PostMapping("/signup")
 	public ResponseEntity<PatientEntity> signup(@RequestBody PatientSignupDTO pDto) {
 		
