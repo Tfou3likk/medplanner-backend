@@ -2,6 +2,7 @@ package com.medplanner.medplanner_backend.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +30,12 @@ public class RdvController {
 		return rdvRepository.findByIdPatient(id);
 	}
 	
-	@DeleteMapping("/patient/{id}")
-	public void delete(@PathVariable Integer id) {
+	@DeleteMapping("/patient/delete/{id}")
+	public List<RendezVousEntity> delete(@PathVariable Integer id) {
+		Integer idrecu =  id;
         rdvRepository.deleteById(id);
+        List<RendezVousEntity> listeRdvPatient = listerRdvPatient(id);
+        return listeRdvPatient;
     }
 
 }

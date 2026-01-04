@@ -13,4 +13,5 @@ public interface RendezVousRepository extends JpaRepository<RendezVousEntity, In
 
 	List<RendezVousEntity> findByIdPatient(Integer IdPatient);
 	
+	void deleteById (Integer idRv);
 }
