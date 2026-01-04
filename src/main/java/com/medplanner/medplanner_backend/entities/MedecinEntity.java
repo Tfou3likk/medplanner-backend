@@ -20,25 +20,58 @@ public class MedecinEntity {
 	@Column
 	private String prenom;
 	
-	@Column(name = "id_etablissement")
-	private Integer idEtablissement;
+	@Column
+	private String password;
 	
-	@Column(name = "id_specialite")
+	@Column
+	private String email;
+	
+	@Column(name = "id_specialite", insertable=false, updatable=false)
 	private Integer idSpecialite;
 	
-	@Column(name = "duree_rdv")
-	private Integer dureeRdv;
+	@Column(name = "id_ville", insertable=false, updatable=false)
+	private Integer idVille;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId
+	@JoinColumn(name = "id_ville")
+	private VilleEntity ville;
 	
-	@Column(name = "heure_embauche")
-	private LocalTime heureEmbauche;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId
+	@JoinColumn(name = "id_specialite")
+	private SpecialiteEntity specialite;
 	
-	//@Many
-	//private EtablissementEntity etablissement;
 	
 	public MedecinEntity() {
 		super();
 	}
+	
+	
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -64,13 +97,6 @@ public class MedecinEntity {
 		this.prenom = prenom;
 	}
 
-	public Integer getIdEtablissement() {
-		return idEtablissement;
-	}
-
-	public void setIdEtablissement(Integer idEtablissement) {
-		this.idEtablissement = idEtablissement;
-	}
 
 	public Integer getIdSpecialite() {
 		return idSpecialite;
@@ -80,21 +106,8 @@ public class MedecinEntity {
 		this.idSpecialite = idSpecialite;
 	}
 
-	public Integer getDureeRdv() {
-		return dureeRdv;
-	}
-
-	public void setDureeRdv(Integer dureeRdv) {
-		this.dureeRdv = dureeRdv;
-	}
-
-	public LocalTime getHeureEmbauche() {
-		return heureEmbauche;
-	}
-
-	public void setHeureEmbauche(LocalTime heureEmbauche) {
-		this.heureEmbauche = heureEmbauche;
-	}
+	
+	
 
 	
 	

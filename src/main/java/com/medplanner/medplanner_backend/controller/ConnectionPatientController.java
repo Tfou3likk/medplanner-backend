@@ -1,5 +1,7 @@
 package com.medplanner.medplanner_backend.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.medplanner.medplanner_backend.DTO.PatientConnectDTO;
@@ -22,9 +24,10 @@ public class ConnectionPatientController {
 	            
 	    
 	@PostMapping("/login")
-	public PatientEntity connect(@RequestBody PatientConnectDTO pDto) {
+	public ResponseEntity<PatientEntity> connect(@RequestBody PatientConnectDTO pDto) {
 		
-		return patient.findByEmailAndPassword(pDto.getEmail(), pDto.getPassword()).get();
+		return patient.findByEmailAndPassword(pDto.getEmail(), pDto.getPassword()).map(ResponseEntity::ok)
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
 	

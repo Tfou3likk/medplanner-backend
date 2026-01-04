@@ -1,5 +1,7 @@
 package com.medplanner.medplanner_backend.DTO;
 
+import java.time.LocalDate;
+
 public class PatientSignupDTO {
 	
 	private String email;
@@ -10,6 +12,8 @@ public class PatientSignupDTO {
 	
 	private String prenom;
 	
+	private LocalDate dateNaissance;
+	
 
 	public PatientSignupDTO(String email, String password, String nom, String prenom) {
 		super();
@@ -18,6 +22,20 @@ public class PatientSignupDTO {
 		this.nom = nom;
 		this.prenom = prenom;
 	}
+
+	
+	
+	public LocalDate getDateNaissance() {
+		return dateNaissance;
+	}
+
+
+
+	public void setDateNaissance(LocalDate dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
+
+
 
 	public String getEmail() {
 		return email;

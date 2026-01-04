@@ -2,6 +2,8 @@ package com.medplanner.medplanner_backend.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +18,7 @@ public class PatientEntity {
 	@Column
 	private String email;
 	
+	@JsonIgnore
 	@Column
 	private String password;
 	
